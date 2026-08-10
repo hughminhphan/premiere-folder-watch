@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Node ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Validate source
+        run: npm run check
+
+      - name: Build CCX
+        run: npm run package
+
+      - name: Upload CCX
+        uses: actions/upload-artifact@v4
+        with:
+          name: folder-watch-${{ matrix.os }}
+          path: dist/*.ccx
+          if-no-files-found: error

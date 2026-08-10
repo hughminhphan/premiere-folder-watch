@@ -1,0 +1,25 @@
+{
+  "name": "premiere-folder-watch",
+  "version": "1.0.0",
+  "description": "A free and open-source Adobe Premiere Pro panel that keeps project bins in sync with folders on disk.",
+  "license": "MIT",
+  "author": "Hugh Phan",
+  "homepage": "https://github.com/hughminhphan/premiere-folder-watch#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hughminhphan/premiere-folder-watch.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hughminhphan/premiere-folder-watch/issues"
+  },
+  "type": "commonjs",
+  "scripts": {
+    "test": "node --test",
+    "check": "node scripts/check.js",
+    "package": "node scripts/package.js",
+    "release:check": "npm run check && npm run package"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

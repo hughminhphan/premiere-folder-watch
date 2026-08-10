@@ -1,0 +1,76 @@
+name: Bug report
+description: Report a reproducible Folder Watch problem
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Remove client names, private paths, and project media before submitting.
+  - type: input
+    id: version
+    attributes:
+      label: Folder Watch version
+      placeholder: 1.0.0
+    validations:
+      required: true
+  - type: input
+    id: premiere
+    attributes:
+      label: Premiere Pro version
+      placeholder: 26.3.0
+    validations:
+      required: true
+  - type: input
+    id: os
+    attributes:
+      label: Operating system
+      placeholder: macOS 26.5 or Windows 11
+    validations:
+      required: true
+  - type: dropdown
+    id: storage
+    attributes:
+      label: Storage type
+      options:
+        - Internal drive
+        - External APFS or NTFS drive
+        - External ExFAT drive
+        - Network share or NAS
+        - Cloud-synced folder
+        - Windows junction
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Reproduction steps
+      description: Use a throwaway project and disposable media when possible.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior and exact error
+    validations:
+      required: true
+  - type: textarea
+    id: settings
+    attributes:
+      label: Relevant watch-folder settings
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checks
+      options:
+        - label: I searched existing issues.
+          required: true
+        - label: I removed private project and file information.
+          required: true
