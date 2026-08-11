@@ -12,6 +12,7 @@ const {
   observeFile,
   parseSequenceFrame,
   pathKey,
+  persistJSON,
   planSync,
   relativePathBetween,
   resolveFolderSettings,
@@ -221,6 +222,24 @@ test("can exclude subfolders without excluding root files", () => {
   assert.deepEqual(result.candidates.map((unit) => unit.importPath), ["/root/top.mov"]);
 });
 
+test("detects a new file appended to an existing dated subfolder", () => {
+  const existing = file(
+    "/root/2026-08-11/41-first-clip_C8028.MP4",
+    "2026-08-11/41-first-clip_C8028.MP4"
+  );
+  const appended = file(
+    "/root/2026-08-11/48-new-clip_C8035.MP4",
+    "2026-08-11/48-new-clip_C8035.MP4"
+  );
+  const result = planSync([existing, appended], {
+    settings: { includeSubfolders: true, flatten: false },
+    registryPaths: [existing.path]
+  });
+
+  assert.deepEqual(result.candidates.map((unit) => unit.importPath), [appended.path]);
+  assert.deepEqual(result.candidates[0].destinationSegments, ["2026-08-11"]);
+});
+
 test("computes and resolves portable relative paths", () => {
   assert.equal(
     relativePathBetween("/Projects/Template", "/Projects/Template/Media/Camera"),
@@ -245,5 +264,23 @@ test("creates stable non-secret watch folder identifiers", () => {
   assert.notEqual(
     watchFolderId("project-1", "/Media/Footage"),
     watchFolderId("project-2", "/Media/Footage")
+  );
+});
+
+test("persists project state and verifies the storage readback", () => {
+  const values = new Map();
+  const storage = {
+    getItem: (key) => values.get(key) ?? null,
+    setItem: (key, value) => values.set(key, value)
+  };
+  const state = { watchFolders: [{ id: "watch-1", nativePath: "/root/raw" }] };
+
+  const serialized = persistJSON(storage, "folderWatch.project.v2.project-1", state);
+  assert.equal(storage.getItem("folderWatch.project.v2.project-1"), serialized);
+  assert.deepEqual(JSON.parse(serialized), state);
+
+  assert.throws(
+    () => persistJSON({ getItem: () => null, setItem: () => {} }, "key", state),
+    /did not retain/
   );
 });

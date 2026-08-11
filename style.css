@@ -421,8 +421,11 @@ footer { justify-content: space-between; margin-top: 11px; padding: 0 2px; color
 .editor-backdrop[hidden] { display: none; }
 .folder-editor {
   width: min(390px, 100%);
-  margin: auto;
-  overflow: hidden;
+  max-height: calc(100vh - 24px);
+  margin: 0 auto;
+  flex: 0 0 auto;
+  overflow-x: hidden;
+  overflow-y: auto;
   border: 1px solid var(--line-strong);
   border-radius: 9px;
   background: var(--surface);

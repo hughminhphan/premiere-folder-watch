@@ -465,6 +465,16 @@ function stableHash(value) {
   return (hash >>> 0).toString(36);
 }
 
+function persistJSON(storage, key, value) {
+  if (!storage || typeof storage.setItem !== "function" || typeof storage.getItem !== "function") {
+    throw new Error("Persistent storage is unavailable");
+  }
+  const serialized = JSON.stringify(value);
+  storage.setItem(key, serialized);
+  if (storage.getItem(key) !== serialized) throw new Error("Persistent storage did not retain the saved value");
+  return serialized;
+}
+
 function watchFolderId(projectGuid, nativePath) {
   return `watch-${stableHash(`${projectGuid}\x00${pathKey(nativePath)}`)}`;
 }
@@ -527,6 +537,7 @@ module.exports = {
   parseRegexRule,
   parseSequenceFrame,
   pathKey,
+  persistJSON,
   planSync,
   relativePathBetween,
   resolveFolderSettings,

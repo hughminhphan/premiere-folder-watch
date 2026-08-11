@@ -143,10 +143,11 @@ function persistedWatch(watch) {
 }
 
 function saveProjectState() {
-  if (!runtime.projectGuid) return;
-  localStorage.setItem(
+  if (!runtime.projectGuid) throw new Error("Open a Premiere project before saving a watch folder");
+  core.persistJSON(
+    localStorage,
     projectStorageKey(runtime.projectGuid),
-    JSON.stringify({ watchFolders: runtime.watchFolders.map(persistedWatch) })
+    { watchFolders: runtime.watchFolders.map(persistedWatch) }
   );
 }
 
@@ -654,6 +655,7 @@ function saveEditor() {
   if (!runtime.editor) return;
   storeEditorControls();
   const draft = cleanWatchFolder(runtime.editor.draft);
+  const previousWatchFolders = clone(runtime.watchFolders);
 
   if (draft.relative) {
     const relativePath = computeRelativePath(draft);
@@ -681,14 +683,24 @@ function saveEditor() {
   if (runtime.editor.isNew) {
     draft.baselinePending = !draft.settings.importExisting;
     runtime.watchFolders.push(draft);
-    addActivity(`Added ${draft.name}`, "ok", true);
   } else {
     const index = runtime.watchFolders.findIndex((watch) => watch.id === runtime.editor.originalId);
     if (index >= 0) runtime.watchFolders[index] = draft;
-    addActivity(`Saved settings for ${draft.name}`, "ok", true);
   }
 
-  saveProjectState();
+  try {
+    saveProjectState();
+  } catch (error) {
+    runtime.watchFolders = previousWatchFolders;
+    addActivity(`Could not save ${draft.name}: ${error.message}`, "error", true);
+    render();
+    return;
+  }
+  addActivity(
+    runtime.editor.isNew ? `Added ${draft.name}` : `Saved settings for ${draft.name}`,
+    "ok",
+    true
+  );
   closeEditor();
   render();
   if (runtime.config.autoSync) syncAll("automatic");
