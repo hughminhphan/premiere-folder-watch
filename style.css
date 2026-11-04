@@ -84,11 +84,12 @@ footer {
 .brand > div { min-width: 0; }
 
 .brand-mark {
-  display: grid;
+  display: flex;
   width: 34px;
   height: 34px;
   flex: 0 0 auto;
-  place-items: center;
+  align-items: center;
+  justify-content: center;
   border: 1px solid rgba(151, 137, 255, 0.42);
   border-radius: 9px;
   background: linear-gradient(145deg, rgba(124, 108, 242, 0.27), rgba(124, 108, 242, 0.08));
@@ -161,16 +162,20 @@ h1 { font-size: 17px; font-weight: 650; letter-spacing: -0.015em; }
 .add-button span { margin-right: 3px; font-size: 15px; line-height: 0; }
 
 .icon-button {
-  display: grid;
+  display: flex;
   width: 33px;
   padding: 0;
   flex: 0 0 auto;
-  place-items: center;
+  align-items: center;
+  justify-content: center;
   border: 1px solid var(--line);
   background: var(--surface-2);
 }
 
-.icon-button:hover:not(:disabled) { border-color: var(--line-strong); background: var(--surface-3); }
+.icon-button.is-disabled { opacity: 0.42; cursor: default; }
+#syncNow { cursor: pointer; }
+#syncNow.is-disabled { cursor: default; }
+.icon-button:hover:not(:disabled):not(.is-disabled) { border-color: var(--line-strong); background: var(--surface-3); }
 .icon-button svg { width: 16px; height: 16px; }
 .icon-button path { fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.45; }
 .icon-button.syncing svg { animation: spin 0.85s linear infinite; }
@@ -187,11 +192,12 @@ h1 { font-size: 17px; font-weight: 650; letter-spacing: -0.015em; }
 
 .project-banner.error { border-color: rgba(238, 119, 119, 0.5); background: var(--danger-soft); }
 .project-icon {
-  display: grid;
+  display: flex;
   width: 25px;
   height: 25px;
   flex: 0 0 auto;
-  place-items: center;
+  align-items: center;
+  justify-content: center;
   border-radius: 5px;
   background: #5a43c9;
   color: #dcd6ff;

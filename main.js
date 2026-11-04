@@ -286,7 +286,9 @@ function renderToolbar() {
     "aria-label",
     runtime.config.autoSync ? "Automatic sync is on" : "Automatic sync is off"
   );
-  $("syncNow").disabled = runtime.syncing || !runtime.projectGuid || runtime.watchFolders.length === 0;
+  const syncUnavailable = runtime.syncing || !runtime.projectGuid || runtime.watchFolders.length === 0;
+  $("syncNow").classList.toggle("is-disabled", syncUnavailable);
+  $("syncNow").setAttribute("aria-disabled", String(syncUnavailable));
   $("syncNow").classList.toggle("syncing", runtime.syncing);
   $("addFolder").disabled = !runtime.projectGuid;
   $("emptyAddFolder").disabled = !runtime.projectGuid;
@@ -1239,7 +1241,16 @@ function handleWatchListClick(event) {
 
 function attachEvents() {
   $("toggleWatching").addEventListener("click", () => setAutoSync(!runtime.config.autoSync));
-  $("syncNow").addEventListener("click", () => syncAll("manual"));
+  // syncNow is a div because UXP does not lay out SVG children inside <button>.
+  const syncFromControl = () => {
+    if (!$("syncNow").classList.contains("is-disabled")) syncAll("manual");
+  };
+  $("syncNow").addEventListener("click", syncFromControl);
+  $("syncNow").addEventListener("keydown", (event) => {
+    if (event.key !== "Enter" && event.key !== " ") return;
+    event.preventDefault();
+    syncFromControl();
+  });
   $("addFolder").addEventListener("click", addFolder);
   $("emptyAddFolder").addEventListener("click", addFolder);
   $("watchList").addEventListener("click", handleWatchListClick);
