@@ -877,10 +877,20 @@ async function findChildBin(parent, name) {
   return null;
 }
 
+function asFolderItem(item) {
+  // Bins returned by getItems() are plain ProjectItems; only FolderItem exposes createBinAction.
+  if (typeof item.createBinAction === "function") return item;
+  const folderItemApi = ppro.FolderItem;
+  return folderItemApi && typeof folderItemApi.cast === "function" ? folderItemApi.cast(item) : null;
+}
+
 async function createChildBin(parent, name) {
-  if (typeof parent.createBinAction !== "function") throw new Error("Premiere cannot create bins through this API version");
+  const parentFolder = asFolderItem(parent);
+  if (!parentFolder || typeof parentFolder.createBinAction !== "function") {
+    throw new Error("Premiere cannot create bins through this API version");
+  }
   await runTransaction(runtime.project, `Create Folder Watch bin: ${name}`, (compoundAction) => {
-    compoundAction.addAction(parent.createBinAction(name, false));
+    compoundAction.addAction(parentFolder.createBinAction(name, false));
   });
   const created = await findChildBin(parent, name);
   if (!created) throw new Error(`Premiere did not create bin ${name}`);
