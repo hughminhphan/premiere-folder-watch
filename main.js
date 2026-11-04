@@ -331,8 +331,8 @@ function renderWatchList() {
           <span class="card-status ${statusClass}" title="${escapeHTML(watch.lastMessage)}"></span>
         </header>
         <div class="card-meta">
-          <span>Premiere bin</span><span title="${escapeHTML(target)}">${escapeHTML(target)}</span>
-          <span>Status</span><span>${escapeHTML(watch.lastMessage)}</span>
+          <div class="card-meta-row"><span>Premiere bin</span><span title="${escapeHTML(target)}">${escapeHTML(target)}</span></div>
+          <div class="card-meta-row"><span>Status</span><span title="${escapeHTML(watch.lastMessage)}">${escapeHTML(watch.lastMessage)}</span></div>
         </div>
         <div class="card-flags">
           ${folderFlags(watch).map((flag, index) => `<span class="flag${index === 0 ? " accent" : ""}">${escapeHTML(flag)}</span>`).join("")}
