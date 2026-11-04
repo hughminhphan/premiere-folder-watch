@@ -203,8 +203,7 @@ h1 { font-size: 17px; font-weight: 650; letter-spacing: -0.015em; }
 .project-banner strong { display: block; overflow: hidden; font-size: 11px; font-weight: 590; text-overflow: ellipsis; white-space: nowrap; }
 
 .summary {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  display: flex;
   margin-bottom: 10px;
   overflow: hidden;
   border: 1px solid var(--line);
@@ -215,6 +214,7 @@ h1 { font-size: 17px; font-weight: 650; letter-spacing: -0.015em; }
 .summary div {
   display: flex;
   min-width: 0;
+  flex: 1 1 0;
   padding: 8px 4px 7px;
   flex-direction: column;
   align-items: center;
@@ -287,14 +287,14 @@ h1 { font-size: 17px; font-weight: 650; letter-spacing: -0.015em; }
 .card-status.error { background: var(--danger); }
 
 .card-meta {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 5px 10px;
   padding: 0 10px 9px 40px;
   color: var(--muted);
   font-size: 10px;
 }
-.card-meta span:nth-child(even) { overflow: hidden; max-width: 150px; color: var(--text); text-align: right; text-overflow: ellipsis; white-space: nowrap; }
+.card-meta-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.card-meta-row + .card-meta-row { margin-top: 5px; }
+.card-meta-row span:first-child { min-width: 0; flex: 1 1 auto; }
+.card-meta-row span:last-child { overflow: hidden; max-width: 150px; flex: 0 1 auto; color: var(--text); text-align: right; text-overflow: ellipsis; white-space: nowrap; }
 
 .card-flags { display: flex; flex-wrap: wrap; gap: 4px; padding: 0 10px 9px 40px; }
 .flag { padding: 2px 5px; border-radius: 3px; background: var(--surface-3); color: var(--muted); font-size: 8px; letter-spacing: 0.03em; text-transform: uppercase; }
@@ -327,20 +327,19 @@ h1 { font-size: 17px; font-weight: 650; letter-spacing: -0.015em; }
 }
 .activity-empty { padding: 12px; color: var(--quiet); text-align: center; }
 .activity-item {
-  display: grid;
-  grid-template-columns: 7px minmax(0, 1fr) auto;
+  display: flex;
   gap: 8px;
-  align-items: start;
+  align-items: flex-start;
   padding: 8px 9px;
   border-bottom: 1px solid #33343a;
 }
 .activity-item:last-child { border-bottom: 0; }
-.activity-item .activity-dot { width: 6px; height: 6px; margin-top: 4px; border-radius: 50%; background: var(--quiet); }
+.activity-item .activity-dot { width: 6px; height: 6px; flex: 0 0 auto; margin-top: 4px; margin-right: 1px; border-radius: 50%; background: var(--quiet); }
 .activity-item.ok .activity-dot { background: var(--success); }
 .activity-item.error .activity-dot { background: var(--danger); }
 .activity-item.warning .activity-dot { background: var(--warning); }
-.activity-message { min-width: 0; color: var(--muted); line-height: 1.35; overflow-wrap: anywhere; }
-.activity-time { color: var(--quiet); font-size: 9px; white-space: nowrap; }
+.activity-message { min-width: 0; flex: 1 1 auto; color: var(--muted); line-height: 1.35; overflow-wrap: anywhere; }
+.activity-time { flex: 0 0 auto; color: var(--quiet); font-size: 9px; white-space: nowrap; }
 
 .settings-panel {
   margin-top: 10px;
