@@ -81,12 +81,15 @@
       </div>
     </section>
 
-    <details class="settings-panel">
-      <summary>
+    <section id="settingsPanel" class="settings-panel is-collapsed">
+      <div class="settings-header">
         <span>Global settings</span>
-        <span class="chevron" aria-hidden="true"></span>
-      </summary>
-      <div class="settings-body">
+        <div id="settingsToggle" class="settings-toggle" role="button" tabindex="0" aria-expanded="false" aria-controls="settingsBody" aria-label="Expand global settings">
+          <span class="chevron chevron-expanded" aria-hidden="true"></span>
+          <svg class="chevron-collapsed" viewBox="-1 -1 12 12" aria-hidden="true"><path d="M5 0.05 9.95 5 5 9.95"/></svg>
+        </div>
+      </div>
+      <div id="settingsBody" class="settings-body" hidden>
         <label class="field-row">
           <span>
             <strong>File extensions</strong>
@@ -137,7 +140,7 @@
         </label>
         <button id="resetSettings" class="secondary full-width" type="button">Restore defaults</button>
       </div>
-    </details>
+    </section>
 
     <footer>
       <span>Folder Watch <span id="version">1.0.0</span></span>
