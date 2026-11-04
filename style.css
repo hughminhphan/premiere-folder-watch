@@ -47,7 +47,6 @@ button {
 
 button:not(:disabled),
 select:not(:disabled),
-summary,
 input[type="checkbox"] { cursor: pointer; }
 
 button:disabled { cursor: default; opacity: 0.42; }
@@ -349,18 +348,34 @@ h1 { font-size: 17px; font-weight: 650; letter-spacing: -0.015em; }
   border-radius: var(--radius);
   background: var(--surface);
 }
-.settings-panel summary {
+.settings-header {
   display: flex;
   min-height: 35px;
   padding: 9px 10px;
   align-items: center;
   justify-content: space-between;
-  list-style: none;
   font-weight: 580;
 }
-.settings-panel summary::-webkit-details-marker { display: none; }
-.chevron { width: 7px; height: 7px; border-right: 1px solid var(--muted); border-bottom: 1px solid var(--muted); transform: rotate(45deg); transition: transform 120ms ease; }
-.settings-panel[open] .chevron { transform: rotate(225deg); }
+.settings-toggle {
+  display: flex;
+  width: 24px;
+  min-width: 0;
+  height: 24px;
+  margin: -4px -8px -4px 0;
+  padding: 0;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.settings-toggle:focus-visible { outline: 2px solid #a69dfc; outline-offset: 2px; }
+.settings-body[hidden] { display: none; }
+.chevron { width: 7px; height: 7px; border-right: 1px solid var(--muted); border-bottom: 1px solid var(--muted); transition: transform 120ms ease; }
+/* UXP does not render CSS rotation here, so the collapsed chevron is the expanded
+   corner rotated 45deg counterclockwise, drawn as its own shape. */
+.chevron-collapsed { display: none; width: 12px; height: 12px; }
+.chevron-collapsed path { fill: none; stroke: var(--muted); stroke-linecap: butt; stroke-linejoin: miter; stroke-width: 1; }
+.settings-panel.is-collapsed .chevron-expanded { display: none; }
+.settings-panel.is-collapsed .chevron-collapsed { display: block; }
 .settings-body { padding: 1px 10px 10px; border-top: 1px solid var(--line); }
 
 .field-row { display: block; padding: 10px 0 5px; }
@@ -455,7 +470,6 @@ footer { justify-content: space-between; margin-top: 11px; padding: 0 2px; color
 .danger-button:hover { border-color: var(--danger); background: rgba(238, 119, 119, 0.18); }
 
 button:focus-visible,
-summary:focus-visible,
 select:focus-visible,
 textarea:focus-visible,
 input:focus-visible + .switch { outline: 2px solid #a69dfc; outline-offset: 2px; }

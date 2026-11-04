@@ -1237,7 +1237,24 @@ function handleWatchListClick(event) {
   if (button.dataset.action === "settings") openEditor(watch, false);
 }
 
+function setSettingsPanelExpanded(isExpanded) {
+  $("settingsToggle").setAttribute("aria-expanded", String(isExpanded));
+  $("settingsToggle").setAttribute("aria-label", isExpanded ? "Collapse global settings" : "Expand global settings");
+  $("settingsBody").hidden = !isExpanded;
+  $("settingsPanel").classList.toggle("is-collapsed", !isExpanded);
+}
+
+function toggleSettingsPanel() {
+  setSettingsPanelExpanded($("settingsToggle").getAttribute("aria-expanded") !== "true");
+}
+
 function attachEvents() {
+  $("settingsToggle").addEventListener("click", toggleSettingsPanel);
+  $("settingsToggle").addEventListener("keydown", (event) => {
+    if (event.key !== "Enter" && event.key !== " ") return;
+    event.preventDefault();
+    toggleSettingsPanel();
+  });
   $("toggleWatching").addEventListener("click", () => setAutoSync(!runtime.config.autoSync));
   $("syncNow").addEventListener("click", () => syncAll("manual"));
   $("addFolder").addEventListener("click", addFolder);
