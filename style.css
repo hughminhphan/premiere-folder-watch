@@ -222,7 +222,7 @@ h1 { font-size: 17px; font-weight: 650; letter-spacing: -0.015em; }
 }
 .summary div + div { border-left: 1px solid var(--line); }
 .summary strong { font-size: 15px; font-weight: 620; }
-.summary span { overflow: hidden; max-width: 100%; color: var(--quiet); font-size: 8px; letter-spacing: 0.06em; text-overflow: ellipsis; text-transform: uppercase; white-space: nowrap; }
+.summary span { overflow: hidden; max-width: 100%; padding: 3px 0; margin: -3px 0 -6px; line-height: 14px; color: var(--quiet); font-size: 8px; letter-spacing: 0.06em; text-overflow: ellipsis; text-transform: uppercase; white-space: nowrap; }
 
 .empty-state {
   padding: 22px 16px 20px;
