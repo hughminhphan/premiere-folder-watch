@@ -91,6 +91,7 @@ footer {
   place-items: center;
   border: 1px solid rgba(151, 137, 255, 0.42);
   border-radius: 9px;
+  margin-right: 9px;
   background: linear-gradient(145deg, rgba(124, 108, 242, 0.27), rgba(124, 108, 242, 0.08));
 }
 
@@ -194,6 +195,7 @@ h1 { font-size: 17px; font-weight: 650; letter-spacing: -0.015em; }
   place-items: center;
   border-radius: 5px;
   background: #5a43c9;
+  margin-right: 9px;
   color: #dcd6ff;
   font-size: 10px;
   font-weight: 700;
@@ -258,6 +260,7 @@ h1 { font-size: 17px; font-weight: 650; letter-spacing: -0.015em; }
   border: 1px solid #8176d8;
   border-radius: 3px;
   background: var(--accent-soft);
+  margin-right: 9px;
   position: relative;
 }
 .folder-glyph::before {
