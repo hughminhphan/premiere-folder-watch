@@ -1263,6 +1263,11 @@ function attachEvents() {
   $("cancelEditor").addEventListener("click", closeEditor);
   $("saveEditor").addEventListener("click", saveEditor);
   $("removeFolder").addEventListener("click", removeEditorFolder);
+  $("removeFolder").addEventListener("keydown", (event) => {
+    if (event.key !== "Enter" && event.key !== " ") return;
+    event.preventDefault();
+    removeEditorFolder();
+  });
   $("relinkFolder").addEventListener("click", relinkEditorFolder);
   $("createChildFolder").addEventListener("click", createEditorChildFolder);
   $("useSelectedBin").addEventListener("click", setEditorSelectedBin);

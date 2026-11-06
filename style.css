@@ -451,8 +451,23 @@ footer { justify-content: space-between; margin-top: 11px; padding: 0 2px; color
 .editor-actions.secondary-actions { padding-bottom: 0; border-top: 1px solid var(--line); }
 .editor-actions.secondary-actions button { flex: 1 1 0; }
 .editor-actions .spacer { flex: 1 1 auto; }
-.danger-button { border: 1px solid rgba(238, 119, 119, 0.42); background: var(--danger-soft); color: #ff9b9b; }
-.danger-button:hover { border-color: var(--danger); background: rgba(238, 119, 119, 0.18); }
+/* Remove is a div because UXP paints its own pill over <button> backgrounds, so a CSS fill or
+   border on a button shows as a square behind the pill. A div paints its own rounded fill.
+   38px tall matches the pills UXP draws for the neighbouring buttons (measured in the live panel). */
+.danger-button {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  padding: 0 28px;
+  border-radius: 10px;
+  background-color: #6a6a6a;
+  color: white;
+  font-weight: 620;
+  cursor: pointer;
+}
+.danger-button:hover { background-color: var(--danger); }
 
 button:focus-visible,
 summary:focus-visible,
