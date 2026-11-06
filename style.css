@@ -440,7 +440,7 @@ footer { justify-content: space-between; margin-top: 11px; padding: 0 2px; color
 .editor-target strong { color: var(--muted); font-weight: 580; }
 .close-button { width: 28px; min-height: 28px; font-size: 18px; line-height: 1; }
 .editor-section { padding: 10px 13px; border-top: 1px solid var(--line); }
-.editor-section > label:first-child { display: block; margin-bottom: 5px; color: var(--muted); font-size: 9px; text-transform: uppercase; letter-spacing: 0.05em; }
+#overridePickerWrap > label:first-child { display: block; margin-bottom: 5px; color: var(--muted); font-size: 9px; text-transform: uppercase; letter-spacing: 0.05em; }
 .editor-section > select { width: 100%; }
 .create-folder-row { display: flex; gap: 6px; margin-top: 8px; }
 .create-folder-row input { min-width: 0; min-height: 29px; padding: 5px 7px; flex: 1 1 auto; }
